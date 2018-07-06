@@ -1,0 +1,11 @@
+item.fanny_pack.name=Saccus Macropodis
+itemGroup.fannypack=SaccusMacropodis
+
+fannypack.extra_hotbar=Secunda Virga Aditus Celer %s
+fannypack.upgrade_string=Ut Emendes Cum %s
+
+key.fanny_pack_next.desc=Saccus Macropodis Secundus
+
+key.fannypack.category=SaccusMacropodis
+
+name.BELT=Cingulum

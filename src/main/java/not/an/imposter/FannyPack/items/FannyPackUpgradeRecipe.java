@@ -8,18 +8,22 @@ package not.an.imposter.FannyPack.items;
 import com.google.gson.JsonObject;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.RecipeRepairItem;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.JsonUtils;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.IRecipeFactory;
 import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import not.an.imposter.FannyPack.FannyConf;
 
 /**
  *
@@ -34,11 +38,14 @@ public class FannyPackUpgradeRecipe extends RecipeRepairItem {
 	@Override
 	public boolean matches(InventoryCrafting inv, World worldIn) {
 		int packs = 0, stars = 0;
+		Item upgradeItem = Item.REGISTRY.getObject(new ResourceLocation(FannyConf.upgradeItem));
+		if (upgradeItem == null)
+			upgradeItem = Items.NETHER_STAR;
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack curItem = inv.getStackInSlot(i);
 			if (curItem != null) {
 				if (curItem.getItem() instanceof ItemFannyPack) packs++;
-				if (curItem.getItem() == Items.NETHER_STAR) stars++;
+				if (curItem.getItem() == upgradeItem) stars++;
 			}
 		}
 		return (packs == 1 && stars == 1);

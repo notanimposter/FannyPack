@@ -1,6 +1,9 @@
 item.fanny_pack.name=Fanny Pack
 itemGroup.fannypack=FannyPack
 
+fannypack.extra_hotbar=Extra Hotbar %s
+fannypack.upgrade_string=Upgrade With a %s
+
 key.fanny_pack_next.desc=Fanny Pack Next
 
 key.fannypack.category=FannyPack

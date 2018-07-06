@@ -10,13 +10,22 @@ import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import baubles.api.cap.IBaublesItemHandler;
 import java.util.List;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import not.an.imposter.FannyPack.FannyConf;
 
 /**
  *
@@ -62,6 +71,7 @@ public class ItemFannyPack extends ItemThing implements IBauble {
 			.replace("DD", "M").replace("DCD", "CM");
 	}
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, World world, List list, ITooltipFlag par4) {
 		NBTTagCompound beltNBT = stack.getTagCompound();
 		int itemLevel = 1;
@@ -73,8 +83,13 @@ public class ItemFannyPack extends ItemThing implements IBauble {
 		} else {
 			dontNeedTheBoy(stack,world);
 		}
-		list.add("Extra Hotbar "+getRoman(itemLevel));
-		list.add("Upgrade With a Nether Star");
+		Item upgradeItem = Item.REGISTRY.getObject(new ResourceLocation(FannyConf.upgradeItem));
+		if (upgradeItem == null)
+			upgradeItem = Items.NETHER_STAR;
+		list.add(I18n.format("fannypack.extra_hotbar", getRoman(itemLevel)));
+		//list.add("Extra Hotbar "+getRoman(itemLevel));
+		list.add(I18n.format("fannypack.upgrade_string", upgradeItem.getItemStackDisplayName(new ItemStack(upgradeItem))));
+		//list.add(FannyConf.upgradeTooltip);
 	}
 	
 	@Override
